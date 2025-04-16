@@ -1,0 +1,29 @@
+{% render 'partials/head.liquid' %}
+{% render 'partials/header.liquid' %}
+
+
+     <ul class="card-container">  
+        {% for artwork in artworks %}
+            <li class="li-gallery">
+                <a href="/object/{{ artwork.id }}">
+                <img class="image" src="https://fdnd-agency.directus.app/assets/{{ artwork.image }}" alt="">
+                </a>
+                <form action="/like/{{ artwork.id }}" method="post">
+                    <input hidden name="artwork_id" type="{{ artwork.id }}">
+                    <button class="like-button"></button>
+                </form>
+            </li>
+          {% endfor %}
+      </ul> 
+
+      <form class="search-form">
+        <label>
+            <input type="search" placeholder="SEARCH THE COLLECTION">
+        </label>
+      </form>
+
+     
+
+
+      
+            {% render 'partials/foot.liquid' %}
