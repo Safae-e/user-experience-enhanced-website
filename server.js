@@ -31,9 +31,10 @@ app.set('views', './views')
 app.get('/', async function (request, response) {
   // Render index.liquid uit de Views map
   // Geef hier eventueel data aan mee
-  const apiResponse = await fetch('https://fdnd-agency.directus.app/items/fabrique_art_objects');
+  const apiResponse = await fetch('https://fdnd-agency.directus.app/items/fabrique_art_objects?fields=*,image.id,image.width,image.height');
   const apiResponseJSON = await apiResponse.json();
-
+   
+  console.log(apiResponse)
   response.render('index.liquid', { artworks: apiResponseJSON.data});
 })
 
