@@ -2,9 +2,9 @@
 .navigation {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
+    align-items: center;    
     gap: 1rem;
-    align-items: center;
+    flex-wrap: nowrap;
     /* position: fixed; */
     background-color: var(--background-color);
     border-bottom: 2px solid black;
@@ -12,6 +12,7 @@
 
 .qatar-logo {
     justify-content: flex-start;
+    flex-shrink: 0;
 }
 
 .nav-bar {
@@ -19,6 +20,8 @@
     display:flex;
     justify-content: flex-end;
     column-gap: 1em;
+    gap: 1em;   
+    flex: 1;
     /* align-items: inherit; */
 }
 
@@ -76,6 +79,10 @@ a {
     gap: 8px;
     border: none;
     background-color: var(--background-color);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* MARK: Art gallery */
