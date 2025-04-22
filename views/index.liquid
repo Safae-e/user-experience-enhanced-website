@@ -6,7 +6,7 @@
         {% for artwork in artworks %}
             <li class="li-gallery">
                 <a href="/object/{{ artwork.id }}">
-                <img class="image" src="https://fdnd-agency.directus.app/assets/{{ artwork.image.id }}" width="{{ artwork.image.width }}" height="{{ artwork.image.height }}"  alt="{{ artwork.title }}">
+                <img loading="lazy" class="image" src="https://fdnd-agency.directus.app/assets/{{ artwork.image.id }}" width="{{ artwork.image.width }}" height="{{ artwork.image.height }}"  alt="{{ artwork.title }}">
                 </a>
                 <form action="/like/{{ artwork.id }}" method="post">
                     <input hidden name="artwork_id" type="{{ artwork.id }}">
