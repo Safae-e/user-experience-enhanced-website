@@ -5,17 +5,18 @@
 <h1 class="likes-titel">Liked Artworks</h1>
 
 {% if likedArtworks %}
-    <ul class="card-container"> 
-
-        {% for object in likedArtworks %}
-            <li class="li-liked">
-                <img class="image" src="https://fdnd-agency.directus.app/assets/{{ object.image }}" alt="{{ object.title }}">
-            </li>
-        {% endfor %}
-
-    </ul>
-  {% else %}
-    <p>Je hebt nog geen objecten geliket.</p>
-  {% endif %}
-
-  
+  <ul class="card-container"> 
+    {% for object in likedArtworks %}
+      <li class="li-gallery">
+        <img class="image" src="https://fdnd-agency.directus.app/assets/{{ object.image }}" alt="{{ object.title }}">
+        
+        <form action="/unlike/{{ object.id }}" method="post" data-enhanced="formulier-{{ object.id }}">
+          <input type="hidden" name="artwork_id" value="{{ object.id }}">
+          <button class="like-button liked"></button> 
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Je hebt nog geen objecten geliket.</p>
+{% endif %}

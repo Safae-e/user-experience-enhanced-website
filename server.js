@@ -36,6 +36,7 @@ app.get('/', async function (request, response) {
    
   console.log(apiResponse)
   response.render('index.liquid', { artworks: apiResponseJSON.data});
+
 })
 
 // GET route object.liquid
@@ -67,8 +68,33 @@ app.post('/like/:id', async function(request, response){
       'Content-Type': 'application/json;charset=UTF-8'
     }
   })
-  response.redirect(303, '/')
+
 })
+
+
+app.post('/unlike/:id', async function (request, response) {
+  const artworkId = request.params.id;
+
+  // Stap 1: Zoek het like-record op via filter
+  const responseLikes = await fetch(`https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects?filter={"fabrique_users_id":${userId},"fabrique_art_objects_id":${artworkId}}`);
+  const responseLikesJSON = await responseLikes.json();
+
+  // Stap 2: Haal het ID van de like-record op
+  const likeToDelete = responseLikesJSON.data[0];
+  if (likeToDelete) {
+    const likeId = likeToDelete.id;
+
+    // Stap 3: Verwijder dit specifieke record
+    await fetch(`https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects/${likeId}`, {
+      method: 'DELETE'
+    });
+  }
+
+  // Stap 4: Redirect terug naar /likes (of geef JSON response als je JS gebruikt)
+  response.redirect(303, '/likes');
+});
+
+
 
 // GET route likes.liquid
 app.get('/likes/', async function (request, response) {
@@ -86,7 +112,6 @@ app.get('/likes/', async function (request, response) {
   for (const like of apiResponseJSON.data) {
     const artworkId = like.fabrique_art_objects_id;
 
-    // Als dit artwork ID nog niet is toegevoegd aan de Set, haal dan de details op
     if (!uniqueArtworkIds.has(artworkId)) {
       uniqueArtworkIds.add(artworkId);
 
@@ -96,9 +121,9 @@ app.get('/likes/', async function (request, response) {
     // Voeg het object toe aan de lijst van gelikte objecten
     // unshift-> zorgt ervoor dat de laatst gelikte objecten vooraan komen te staan
     likedArtworks.unshift(artworkDetails.data);
-    }
+    
   }
-
+  }
   response.render('likes.liquid', { likedArtworks: likedArtworks });
 });
 
@@ -108,99 +133,6 @@ app.use((req, res, next) => {
 })
 
 console.log('Let op: Er zijn nog geen routes. Voeg hier dus eerst jouw GET en POST routes toe.')
-
-//  // Als er ergens op de pagina een formulier wordt gesubmit..
-//   // (We maken hier gebruik van Event Delegation)
-//   document.addEventListener('submit', async function(event) {
-
-//     // Hou in een variabele bij welk formulier dat was
-//     const form = event.target
-
-//     // Als dit formulier geen data-enhanced attribuut heeft, doe dan niks speciaals (laat het formulier normaal versturen)
-//     // Dit doen we, zodat we sommige formulieren op de pagina kunnen 'enhancen'
-//     // Door ze bijvoorbeeld data-enhanced="true" of data-enhanced="formulier-3" te geven.
-//     // Data attributen mag je zelf verzinnen: https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Solve_HTML_problems/Use_data_attributes
-//     if (!form.hasAttribute('data-enhanced')) {
-//       return
-//     }
-
-//     // Voorkom de standaard submit van de browser
-//     // Let op: hiermee overschrijven we de default Loading state van de browser...
-//     event.preventDefault()
-
-//     // Verzamel alle formuliervelden van het formulier
-//     let formData = new FormData(form)
-
-//     // En voeg eventueel de name en value van de submit button toe aan die data
-//     // https://developer.mozilla.org/en-US/docs/Web/API/SubmitEvent/submitter
-//     if (event.submitter) {
-//       formData.append(event.submitter.name, event.submitter.value)
-//     }
-
-//     // Doe een fetch naar de server, net als hoe de browser dit normaal zou doen
-//     // Gebruik daarvoor het action en method attribuut van het originele formulier
-//     // Inclusief alle formuliervelden
-//     const response = await fetch(form.action, {
-//       method: form.method,
-//       body: new URLSearchParams(formData)
-//     })
-
-//     // De server redirect op de normale manier, en geeft HTML terug
-//     // (De server weet niet eens dat deze fetch via client-side JavaScript gebeurde)
-//     const responseText = await response.text()
-
-//     // Normaal zou de browser die HTML parsen en weergeven, maar daar moeten we nu zelf iets mee
-//     // Parse de nieuwe HTML en maak hiervan een nieuw Document Object Model in het geheugen
-//     const parser = new DOMParser()
-//     const responseDOM = parser.parseFromString(responseText, 'text/html')
-
-//     // Zoek in die nieuwe HTML DOM onze nieuwe UI state op, die we via Liquid hebben klaargemaakt
-//     // We gebruiken hiervoor het eerdere data-enhanced attribuut, zodat we weten waar we naar moeten zoeken
-//     // In de nieuwe HTML zoeken we bijvoorbeeld naar data-enhanced="true" of data-enhanced="formulier-3"
-//     // (Hierdoor kunnen we ook meerdere formulieren op dezelfde pagina gebruiken)
-//     const newState = responseDOM.querySelector('[data-enhanced="' + form.getAttribute('data-enhanced') + '"]')
-
-//     // Overschrijf ons formulier met de nieuwe HTML
-//     // Hier wil je waarschijnlijk de Loading state vervangen door een Success state
-//     form.outerHTML = newState.outerHTML
-
-//   })
-
-/*
-// Zie https://expressjs.com/en/5x/api.html#app.get.method over app.get()
-app.get(…, async function (request, response) {
-  
-  // Zie https://expressjs.com/en/5x/api.html#res.render over response.render()
-  response.render(…)
-})
-*/
-
-/*
-// Zie https://expressjs.com/en/5x/api.html#app.post.method over app.post()
-app.post(…, async function (request, response) {
-
-  // In request.body zitten alle formuliervelden die een `name` attribuut hebben in je HTML
-  console.log(request.body)
-
-  // Via een fetch() naar Directus vullen we nieuwe gegevens in
-
-  // Zie https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch over fetch()
-  // Zie https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify over JSON.stringify()
-  // Zie https://docs.directus.io/reference/items.html#create-an-item over het toevoegen van gegevens in Directus
-  // Zie https://docs.directus.io/reference/items.html#update-an-item over het veranderen van gegevens in Directus
-  await fetch(…, {
-    method: …,
-    body: JSON.stringify(…),
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
-    }
-  });
-
-  // Redirect de gebruiker daarna naar een logische volgende stap
-  // Zie https://expressjs.com/en/5x/api.html#res.redirect over response.redirect()
-  response.redirect(303, …)
-})
-*/
 
 
 // Stel het poortnummer in waar Express op moet gaan luisteren

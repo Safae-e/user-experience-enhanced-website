@@ -1,3 +1,8 @@
+/* View transitions */
+@view-transition {
+    navigation: auto;
+  }
+  
 /* MARK: header */
 .navigation {
     display: flex;
@@ -116,7 +121,7 @@ a {
     display: block; /* Verwijdert inline-afstanden */
     padding-top: 1.5em;
     transition: transform 0.5s ease;
-    cursor: pointer;
+    cursor: pointer;  
     &:hover {
         transform: scale(1.05);
     }
@@ -301,3 +306,57 @@ input {
     font-weight: bold;
 }
 
+
+/* MARK: view transitions */
+
+/* Apply the custom animation to the old and new page states */
+/* ::view-transition-old(root) {
+  animation: 0.4s ease-in both move-out;
+}
+  
+::view-transition-new(root) {
+  animation: 0.4s ease-in both move-in;
+} */
+
+/* Create a custom animation */
+/* @keyframes move-out {
+  from {
+    transform: translateY(0%);
+  }
+
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes move-in {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0%);
+  }
+} */
+
+
+/* Old stuff going out */
+/* ::view-transition-old(artwork-) {
+    animation: fade 0.2s linear forwards;
+  } */
+  
+  /* New stuff coming in */
+  /* ::view-transition-new(artwork-) {
+    animation: fade 0.3s linear reverse;
+  }
+  
+  @keyframes fade {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  } */
+
+ 
