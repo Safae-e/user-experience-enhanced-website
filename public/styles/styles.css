@@ -105,6 +105,17 @@ a {
 }
 
 .li-gallery {
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.li-gallery.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}   
+
+.li-gallery {
     display: inline-block; /* Zorgt ervoor dat de knop zich binnen de lijst netjes gedraagt */
     position: relative; /* Dit is nodig voor de absolute positionering van de knop */
 }

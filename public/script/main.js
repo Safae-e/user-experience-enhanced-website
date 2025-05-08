@@ -61,6 +61,24 @@ document.addEventListener('submit', async function(event) {
 
   });
 
+    // view transition opstarten
+    function animateCards() { 
+
+    // Selecteer alle elementen met de class 'li-gallery' (elke kaart dus)
+    const cards = document.querySelectorAll('.li-gallery');
+      cards.forEach((card, index) => {
+
+        // Stel een vertraging in per kaart, zodat ze na elkaar verschijnen
+        // Hoe hoger index, hoe later deze kaart verschijnt
+        setTimeout(() => {
+          card.classList.add('show');
+        }, index * 30); // vertraging per kaart
+      });
+    }
+  
+  document.addEventListener('DOMContentLoaded', animateCards);
+
+
   document.addEventListener('click', async function (event) {
     const button = event.target;
   
@@ -95,6 +113,8 @@ document.addEventListener('submit', async function(event) {
       }
     }
   });
+
+
 
 // document.addEventListener('click', async function (event) {
 //     const button = event.target;
