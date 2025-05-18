@@ -9,8 +9,8 @@
                 <img loading="lazy" class="image" src="https://fdnd-agency.directus.app/assets/{{ artwork.image.id }}" width="{{ artwork.image.width }}" height="{{ artwork.image.height }}"  alt="{{ artwork.title }}">
                 </a>
                 <form action="/like/{{ artwork.id }}" method="post" data-enhanced="formulier-{{ artwork.id }}">
-                    <input hidden name="artwork_id" value="{{ artwork.id }}">
-                    <button class="like-button"></button>
+                    <input type="hidden" name="artwork_id" value="{{ artwork.id }}">
+                    <button class="like-button{% if artwork.id in likedArtworkIds %} liked{% endif %}"></button>
                 </form>
             </li>
           {% endfor %}
@@ -25,4 +25,3 @@
       
             {% render 'partials/foot.liquid' %}
 
-            {% comment %} style="view-transition-name: artwork-{{ artwork.image.id }} ;" {% endcomment %}

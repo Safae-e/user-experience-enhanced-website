@@ -18,10 +18,12 @@ document.addEventListener('submit', async function(event) {
     event.preventDefault();
 
     //  Verkrijg de like button
+    // const likeButton = form.querySelector('.like-button');
     const likeButton = form.querySelector('.like-button');
-    
+    likeButton.classList.add('loading'); // Toon drie puntjes
+
     // Voeg de 'liked' klasse toe als de knop geklikt is
-    likeButton.classList.add('liked'); // Dit zorgt ervoor dat de knop verandert naar een vol hartje
+    // likeButton.classList.add('liked'); // Dit zorgt ervoor dat de knop verandert naar een vol hartje
 
     // Verzamel alle formuliervelden van het formulier
     let formData = new FormData(form);
@@ -115,35 +117,3 @@ document.addEventListener('submit', async function(event) {
   });
 
 
-
-// document.addEventListener('click', async function (event) {
-//     const button = event.target;
-  
-//     // Alleen reageren op knoppen met de like-button class
-//     if (button.classList.contains('like-button')) {
-//       const form = button.closest('form');
-//       const artworkId = form.querySelector('input[name="artwork_id"]').value;
-//       const isLiked = button.classList.contains('liked');
-//       const onLikesPage = window.location.pathname === '/likes/';
-  
-//       if (isLiked && onLikesPage) {
-//         event.preventDefault(); // voorkom standaard formuliergedrag
-  
-//         // Verstuur POST-verzoek naar de nieuwe unlike-route
-//         await fetch(`/unlike/${artworkId}`, {
-//           method: 'POST'
-//         });
-  
-//         // Verwijder het object visueel van de pagina
-//         const li = form.closest('li');
-//         if (li) li.remove();
-  
-//         // Controleer of er nog objecten over zijn
-//         const container = document.querySelector('.card-container');
-//         if (container && container.children.length === 0) {
-//           container.outerHTML = '<p>Je hebt nog geen objecten geliket.</p>';
-//         }
-//       }
-//     }
-//   });
-  

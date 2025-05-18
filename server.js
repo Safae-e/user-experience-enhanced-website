@@ -69,6 +69,7 @@ app.post('/like/:id', async function(request, response){
     }
   })
 
+  response.redirect(303, '/');
 })
 
 
