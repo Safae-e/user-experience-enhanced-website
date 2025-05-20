@@ -18,8 +18,20 @@ Alle gelikete objecten worden automatisch opgeslagen en zijn later terug te vind
 ![image](https://github.com/user-attachments/assets/6f8f93e4-cf4f-4112-b25c-e832618f5564) ![image](https://github.com/user-attachments/assets/2526eca1-7f74-4a7e-a60c-d9ec0b3ce5df)
 
 ## Loading state
+Op de homepage kunnen gebruikers de objecten liken. Zodra je met de muis over een object beweegt, verschijnt er een like-knop. Wanneer je op deze knop klikt, verandert de knop tijdelijk in een animatie met drie puntjes. Deze animatie geeft aan dat de like wordt verwerkt en dat het systeem bezig is met het opslaan van je actie. Dit is de loading state, een visuele feedback om de gebruiker te laten weten dat het proces loopt.
+
+
+https://github.com/user-attachments/assets/8c5a4368-18fc-4680-bad8-af6277e3703e
+
+
 
 ## Succes state
+
+Zodra een gebruiker op de like-knop klikt, verandert het icoontje meteen in een rood gevuld hartje. Dit geeft een duidelijke bevestiging dat het object nu aan hun favorieten is toegevoegd. Het blijft zichtbaar zolang de gebruiker het object geliked houdt
+
+
+https://github.com/user-attachments/assets/d86744df-fbdb-448b-a0b4-6da4a75e1849
+
 
 ## Kenmerken
 <!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met JS gedaan en hoe? Misschien heb je iets met NodeJS gedaan, of heb je een framwork of library gebruikt? -->
