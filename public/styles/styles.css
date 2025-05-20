@@ -24,6 +24,9 @@
     list-style-type:none;
     display:flex;
     justify-content: flex-end;
+    align-items: center;
+    flex: 1;
+    flex-wrap: wrap;
     column-gap: 1em;
     gap: 1em;   
     flex: 1;
@@ -44,6 +47,12 @@
 
 .nav-links-like::before {
     content: "♡";
+}
+
+.nav-links-img a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em; 
 }
 
 .ticket-link {
@@ -105,7 +114,7 @@ a {
 }
 
 .li-gallery {
-  opacity: 0;
+  opacity: 1;
   transform: translateY(20px) scale(0.98);
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
